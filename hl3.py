@@ -5,7 +5,7 @@ import re
 #login
 
 r = praw.Reddit(user_agent='hl3_confirmer_bot by u/sallurocks version 1.0')
-r.login('Enter User Name','Enter Password')
+r.login('Enter Username','Enter Password')
 
 
 
@@ -40,25 +40,38 @@ while condition:
 
     #submissions = r.get_submission(submission_id='1z6x8s')
     #flat_comments = praw.helpers.flatten_tree(submissions.comments)
-    subreddit = r.get_subreddit('gaming+dota2+steam+HalfLife')
+    subreddit = r.get_subreddit('gaming+steam+dota2+halflife')
     flat_comments = subreddit.get_comments()
+    try:
+        for comment in flat_comments:
+            for value in keyword:
+                
+                if( ( value in comment.body.lower() ) and (comment.id not in str)):
 
-    for comment in flat_comments:
-        for value in keyword:
+                    print('Ok!')
+                    print(comment.body)
+                    count=count+1
+                    comment.reply(msg+"%s" % count)
+                    fo.write(comment.id+" ")
+                    f1.seek(0,0)
+                    f1.write("%s" % count)
+                    
+           
+                else:
+                    print("No")
+                    print(comment.body)
+
+    except KeyboardInterrupt:
+        running = False
+    except praw.errors.APIException as e:
+        print("[ERROR]:", e)
+        print("sleeping 300 sec")
+        sleep(300)
+    except Exception as e: # In reality you don't want to just catch everything like this, but this is toy code.
+        print("[ERROR]:", e)
+        print("blindly handling error")
+        continue 
             
-            if( ( value in comment.body.lower() ) and (comment.id not in str)):
-
-                print('Ok!')
-                print(comment.body)
-                count=count+1
-                comment.reply(msg+"%s" % count)
-                fo.write(comment.id+" ")
-                f1.seek(0,0)
-                f1.write("%s" % count)
-    
-            else:
-                print("No")
-                print(comment.body)
             
 
     fo.close()
