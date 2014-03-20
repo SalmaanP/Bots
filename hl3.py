@@ -5,7 +5,7 @@ import re
 #login
 
 r = praw.Reddit(user_agent='hl3_confirmer_bot by u/sallurocks version 1.0')
-r.login('Enter Username','Enter Password')
+r.login('Enter User Name','Enter Password')
 
 
 
@@ -18,8 +18,8 @@ r.login('Enter Username','Enter Password')
 
 
 condition = True
-msg="Thank you For Confirming Half-Life 3,Your Outstanding Logical And Mathematical Skills Will Forever Be Remembered.\n\n\nYour Confirmation Is Being Confirmed For Future Reference\n\n______________________________\n\nCurrent Confirmation Count:"
-keyword={'hl3 confirmed','hl3 confirm','hl confirm','hl 3 confirm','hl confirmed','hl 3 confirmed','half life confirm','half life 3 confirm','half-life 3 confirmed','halflife3 confirmed','half life3 confirm','half-life3 confirm'}
+msg="Thank you for confirming Half-Life 3, your outstanding logical and mathematical skills will forever be remembered.\n\n\nYour confirmation is being confirmed for future reference\n\n______________________________\n\nCurrent confirmation count:"
+keyword={'hl3 confirmed','hl3 confirm','hl confirm','hl 3 confirm','hl confirmed','hl 3 confirmed','half life confirm','half life 3 confirm','half-life 3 confirmed','halflife3 confirmed','half life3 confirm','half-life3 confirm','hl3 is confirmed','half life 3 is confirmed','half-life 3 is confirmed','hl 3 is confirmed','half life 3 - confirmed'}
 
 while condition:
 
@@ -40,7 +40,7 @@ while condition:
 
     #submissions = r.get_submission(submission_id='1z6x8s')
     #flat_comments = praw.helpers.flatten_tree(submissions.comments)
-    subreddit = r.get_subreddit('gaming+steam+dota2+halflife')
+    subreddit = r.get_subreddit('dota2+steam+gaming+halflife+globaloffensive')
     flat_comments = subreddit.get_comments()
     try:
         for comment in flat_comments:
@@ -55,6 +55,7 @@ while condition:
                     fo.write(comment.id+" ")
                     f1.seek(0,0)
                     f1.write("%s" % count)
+                    break;
                     
            
                 else:
@@ -76,7 +77,7 @@ while condition:
 
     fo.close()
     f1.close()
-    sleep(5)
+    sleep(20)
     
 
 
