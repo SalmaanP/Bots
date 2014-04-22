@@ -8,7 +8,6 @@ r = praw.Reddit(user_agent='hl3_confirmer_bot by u/sallurocks version 1.0')
 r.login('Enter User Name','Enter Password')
 
 
-
 #work on getting /r gaming comments
 
 
@@ -26,6 +25,7 @@ while condition:
     #a+ to append everytime
     fo=open("test.txt","a+")
     f1=open("count.txt","r+")
+    f2=open("archive.txt","a+")
 
     count=f1.read()
     count=int(count)
@@ -38,9 +38,9 @@ while condition:
     fo.seek(position)
 
 
-    #submissions = r.get_submission(submission_id='1z6x8s')
+    #submissions = r.get_submission(submission_id='235jed')
     #flat_comments = praw.helpers.flatten_tree(submissions.comments)
-    subreddit = r.get_subreddit('dota2+steam+gaming+halflife+globaloffensive')
+    subreddit = r.get_subreddit('dota2+pcmasterrace+gaming+halflife+globaloffensive')
     flat_comments = subreddit.get_comments()
     try:
         for comment in flat_comments:
@@ -54,6 +54,9 @@ while condition:
                     comment.reply(msg+"%s" % count)
                     fo.write(comment.id+" ")
                     f1.seek(0,0)
+                    f2.write("Count %s\n" % count)
+                    f2.write(comment.body)
+                    f2.write("\n\n")
                     f1.write("%s" % count)
                     break;
                     
@@ -77,6 +80,7 @@ while condition:
 
     fo.close()
     f1.close()
+    f2.close()
     sleep(20)
     
 
